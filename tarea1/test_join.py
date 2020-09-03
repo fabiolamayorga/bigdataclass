@@ -80,3 +80,27 @@ def test_join_no_carrer(spark_session):
 
     assert actual_ds.collect() == expected_ds.collect()
 
+# def test_join_estudiante_dos_notas(spark_session):
+
+#     notas_data = [
+#         (6626704, 4117669, 5.7),
+#         (6626704, 3421510, 7), 
+#         (6520985, 3421510, 6.8)
+#     ]
+#     notas_ds = spark_session.createDataFrame(notas_data,
+#                                               ['idCarnet', 'codigoCurso', 'nota'])
+
+#     estudiante_data = [
+#         (6626704, 'Cordelia Shucksmith', 'Enfermeria'), 
+#         (6520985, 'Jana Barhems', 'Biotecnologia')
+#     ]
+#     estudiante_ds = spark_session.createDataFrame(estudiante_data,
+#                                                ['numeroCarnet', 'nombreCompleto','carrera'])
+
+#     cursos_data = [
+#         (3421510, 2,'Enfermeria'), 
+#         (6262158, 2,'Informatica'), 
+#         (3825359,8,'Biotecnologia'), 
+#         (4117669,8,'Filologia')]
+#     cursos_ds = spark_session.createDataFrame(cursos_data,
+#                                                ['codigoCurso', 'creditos','carrera'])
