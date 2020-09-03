@@ -1,43 +1,18 @@
-from pyspark.sql import SparkSession
-from pyspark.sql.types import (IntegerType, FloatType, StructField,
-                               StructType, StringType)
 
-spark = SparkSession.builder.appName("Read Data of Homework").getOrCreate()
+from readestudiante import read
+from joinerestudiante import joinDataSets
+from aggregateestudiante import aggregateFunction
 
+# Programa Principal
 
-## Lee estudiante.csv
-csv_schema = StructType([StructField('numeroCarnet', IntegerType()),
-                         StructField('nombreCompleto', StringType()),
-                         StructField('carrera', StringType()),
-                         ])
+estudianteFrame, notaFrame, cursoFrame = read() # Lectura de CSVs
+joint_df = joinDataSets(estudianteFrame, notaFrame, cursoFrame) #Join de datasets
+aggData = aggregateFunction(joint_df) #Funcion aggregate
 
-dataframe = spark.read.csv("estudiante.csv",
-                           schema=csv_schema,
-                           header=False)
-
-dataframe.show()
+aggData.show()
 
 
-#Lee curso.csv
-csv_schema = StructType([StructField('codigoCurso', IntegerType()),
-                         StructField('creditos', StringType()),
-                         StructField('carrera', StringType()),
-                         ])
 
-dataframe = spark.read.csv("curso.csv",
-                           schema=csv_schema,
-                           header=False)
 
-dataframe.show()
 
-#Lee nota.csv
-csv_schema = StructType([StructField('numeroCarnet', IntegerType()),
-                         StructField('codigoCurso', StringType()),
-                         StructField('nota', StringType()),
-                         ])
 
-dataframe = spark.read.csv("nota.csv",
-                           schema=csv_schema,
-                           header=False)
-
-dataframe.show()
