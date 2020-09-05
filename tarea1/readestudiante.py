@@ -3,7 +3,7 @@ from pyspark.sql.functions import col, date_format, udf
 from pyspark.sql.types import (IntegerType, FloatType, StructField,
                                StructType, StringType)
                                
-def read():
+def read(estudianteCSV, cursoCSV, notasCSV):
     spark = SparkSession.builder.appName("Read Data of Homework").getOrCreate()
 
 
@@ -13,7 +13,7 @@ def read():
                             StructField('carrera', StringType()),
                             ])
 
-    estudianteFrame = spark.read.csv("estudiante.csv",
+    estudianteFrame = spark.read.csv(estudianteCSV,
                             schema=csv_schema,
                             header=False)
 
@@ -26,7 +26,7 @@ def read():
                             StructField('carrera', StringType()),
                             ])
 
-    cursoFrame = spark.read.csv("curso.csv",
+    cursoFrame = spark.read.csv(cursoCSV,
                             schema=csv_schema,
                             header=False)
 
@@ -38,7 +38,7 @@ def read():
                             StructField('nota', FloatType()),
                             ])
 
-    notaFrame = spark.read.csv("nota.csv",
+    notaFrame = spark.read.csv(notasCSV,
                             schema=csv_schema,
                             header=False)
 
